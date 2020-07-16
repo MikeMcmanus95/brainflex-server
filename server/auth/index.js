@@ -11,7 +11,7 @@ router.get('/me', (req, res, next) => {
   }
 });
 
-router.put('/login', async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: {
@@ -19,7 +19,7 @@ router.put('/login', async (req, res, next) => {
       },
     });
     if (!user) res.status(401).send('User not found.');
-    else if (!user.hasMatchingPassword(req.body.password))
+    else if (!user.correctPassword(req.body.password))
       res.status(401).send('Incorrect password.');
     else {
       req.login(user, err => {
