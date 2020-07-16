@@ -6,6 +6,7 @@ const passport = require('passport');
 const compression = require('compression');
 const bodyParser = require('body-parser');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const cors = require('cors');
 const db = require('./db/index');
 // const path = require('path');
 
@@ -36,6 +37,12 @@ passport.deserializeUser(async (id, done) => {
 const createApp = () => {
   // Logging middleware //
   app.use(morgan('dev'));
+  // Cors middleware //
+  const corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  };
+  app.use(cors(corsOptions));
   // Body-parsing middleware //
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
