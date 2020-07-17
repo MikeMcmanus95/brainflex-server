@@ -41,9 +41,10 @@ const createApp = () => {
   const corsOptions = {
     allowedHeaders: ['sessionId', 'Content-Type'],
     exposedHeaders: ['sessionId'],
-    origin: '*',
+    origin: 'http://localhost:3000',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
+    credentials: true,
   };
   app.use(cors(corsOptions));
   // Body-parsing middleware //
